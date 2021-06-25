@@ -94,8 +94,8 @@ public class UserService {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         helper.setTo(user.getEmail());
-        helper.setText("Your new password is: " + password + "\nhave a nice day!\n\nYour friends at JavaDogs");
-        helper.setSubject("New TicketMonster Password");
+        helper.setText("Your new password is: " + password );
+        helper.setSubject("New Event Manager Password");
 
         sender.send(message);
 
