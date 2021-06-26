@@ -1,10 +1,8 @@
-FROM maven:3.6.3-jdk-8
- 
-# copy the source tree and the pom.xml to our new container
-COPY ./ ./
- 
-# package our application code
-RUN mvn clean package
- 
+# we will use openjdk 8 with alpine as it is a very small linux distro
+FROM openjdk:8-jre-alpine3.9
+
+# copy the packaged jar file into our docker image
+COPY target/event-manager-0.0.1-SNAPSHOT.jar /eveman.jar
+
 # set the startup command to execute the jar
-CMD ["java", "-jar", "event-manager-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/eveman.jar"]
