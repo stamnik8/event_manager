@@ -3,7 +3,6 @@ package org.app.event_manager.service;
 import org.app.event_manager.dao.model.Event;
 import org.app.event_manager.dao.repositories.EventRepository;
 import org.app.event_manager.web.ExceptionHandlers.ResourceNotFoundException;
-import org.app.event_manager.web.adapters.weather.WeatherAdapter;
 import org.app.event_manager.web.dto.EventDto;
 import org.app.event_manager.web.dto.TicketDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +22,6 @@ public class EventService {
     @Autowired
     TicketService ticketService;
 
-    @Autowired
-    WeatherAdapter weather;
 
 
     public EventDto findByExternalId(UUID id) {
@@ -34,7 +31,6 @@ public class EventService {
             throw new ResourceNotFoundException("No event with id '" + id + "' found");
         }
         EventDto eventDto = new EventDto().fromEntity(event);
-        eventDto.setWeather(weather.getWeather(event.getDateOfEvent(),event.getLat(), event.getLon() ));
         return eventDto;
     }
 
@@ -72,7 +68,6 @@ public class EventService {
         List<EventDto> eventDtos = new ArrayList<>();
         for (Event event:events) {
             EventDto eventDto = new EventDto().fromEntity(event);
-            eventDto.setWeather(weather.getWeather(event.getDateOfEvent(),event.getLat(), event.getLon() ));
             eventDtos.add(eventDto);
         }
 
